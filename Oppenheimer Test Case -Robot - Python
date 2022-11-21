@@ -1,0 +1,52 @@
+*** Settings ***
+Documentation     Testing
+Metadata          \    ${EMPTY}
+Library           SeleniumLibrary
+Library           DateTime
+Library           String
+
+*** Variables ***
+${API_Base_Endpoint}    ${EMPTY}
+
+*** Test Cases ***
+Login Test Case - Clerk
+    Open Browser    http://localhost:9997/login    firefox
+    Input Text    //*[@id="username-in"]    clerk
+    Input Text    //*[@id="password-in"]    pwd
+    Click Element    //*[@type="submit"]
+    Click Element    //*[@class="fs-3 fw-bold text-white"]
+    Go To    http://localhost:9997/clerk/add
+    Input Text    //*[@id="natid-in"]    natid-12
+    Input Text    //*[@id="name-in"]    hello
+    Input Text    //*[@id="birth-date"]    2020-01-01 00:00:00
+    Input Text    //*[@id="death-date"]    null
+    Input Text    //*[@id="brownie-pts-in"]    9
+    Input Text    //*[@id="salary-in"]    10.00
+    Input Text    //*[@id="tax-paid-in"]    1
+    Click Button    //*[@onclick="addHero()"]
+
+Login Test Case - Clerk - Upload CSV
+    Open Browser    http://localhost:9997/login    firefox
+    Input Text    //*[@id="username-in"]    clerk
+    Input Text    //*[@id="password-in"]    pwd
+    Click Element    //*[@type="submit"]
+    Click Element    //*[@class="fs-3 fw-bold text-white"]
+    Go To    http://localhost:9997/clerk/upload-csv
+    Click Element    //*[id="upload-csv-file"]    D:\\OppenheimerDatabaseProject.csv
+
+Login Test Case - BookKeeper - Generate Tax
+    Open Browser    http://localhost:9997/login    firefox
+    Input Text    //*[@id="username-in"]    bk
+    Input Text    //*[@id="password-in"]    pwd
+    Click Element    //*[@type="submit"]
+    Click Button    //*[@class="btn btn-primary"]
+
+Login Test Case - Governor - Search Hero by Natid or Name
+    Open Browser    http://localhost:9997/login    firefox
+    Input Text    //*[@id="username-in"]    gov
+    Input Text    //*[@id="password-in"]    pwd
+    Click Element    //*[@type="submit"]
+    Click Element    //*[@onClick="loadSearchResults()"]
+    Input Text    //*[@id="natid"]    natid-1
+    Click Element    //*[@value="Search"]
+    Input Text    //*[@id="natid"]    Dani Lebsack
